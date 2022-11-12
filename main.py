@@ -20,6 +20,46 @@ def main(npa):
         print("Res5: ", res5)
         print("Res6: ", res6)
         print("Result: ", bool(res1 or res2 or res3 or res4 or res5 or res6))
+def xor_calculation(x):
+    #Hidden layer 1
+    xor_w_1 = np.array([
+        [[20], [20]]
+    ])
+
+    xor_bi_1 = np.array([
+        [-10]
+    ])
+
+    h1 = matrixes_product(x, xor_w_1, xor_bi_1)
+
+    #Hidden layer 2
+
+    xor_w_2 = np.array([
+        [[-20], [-20]]
+    ])
+
+    xor_bi_2 = np.array([
+        [30]
+    ])
+
+    h2 = matrixes_product(x, xor_w_2, xor_bi_2)
+
+    #Last Neuron
+
+    ln_w = np.array([
+        [[20], [20]]
+    ])
+
+    ln_bi = np.array([
+        [-30]
+    ])
+
+
+    ln = np.stack((h1, h2), axis=1)
+
+    print("LN: ", ln)
+
+    matrixes_product(ln, ln_w, ln_bi)
 
 def sigmoid(value):
     print(1 / (1 + math.pow(math.e, -value)))
@@ -34,6 +74,7 @@ def matrixes_product(x, w, b):
                 res = np.dot(x[i], w[j]) + b[k]
                 res_mat[i] = sigmoid(res)
     print(res_mat)
+    return res_mat
 
 if __name__ == '__main__':
     npa = np.array([
@@ -55,37 +96,17 @@ if __name__ == '__main__':
         [True, True, True, True]
         ])
 
-    '''
-        and_x = np.array([
-           # [0, 1, 0, 1], #Entrada de A
-            [0, 0, 1, 1] #Entrada de B
-        ])
-
-    [
-        [A1, B1],
-        [A2, B2],
-        [A3, B3],
-        [A4, B4]
-    ]
-    
-    [
-        [[2], [2]]
-    ]
-    
-    [
-        [b1],
-    ]
-    
-    '''
-
-    and_x = np.array([
+    x = np.array([
         [0, 0],
         [1, 0],
         [0, 1],
         [1, 1]
     ])
 
-    and_w1 = np.array([
+
+    #AND
+
+    and_w = np.array([
         [[2], [2]]
     ])
 
@@ -94,7 +115,51 @@ if __name__ == '__main__':
     ])
 
 
-    #main(npa) #Solves the function
-    matrixes_product(and_x, and_w1, and_bi)
+    #OR
 
+    or_w = np.array([
+        [[2], [2]]
+    ])
+
+    or_bi = np.array([
+        [0]
+    ])
+
+    #NOR
+
+    nor_w = np.array([
+        [[-1], [-1]]
+    ])
+
+    nor_bi = np.array([
+        [1]
+    ])
+
+    #NAND
+
+    nand_w = np.array([
+        [[-0.3], [-0.7]]
+    ])
+
+    nand_bi = np.array([
+        [1]
+    ])
+
+
+
+
+    #Calculo de AND
+    #matrixes_product(x, and_w, and_bi)
+
+    #Calculo de OR
+    #matrixes_product(x, or_w, or_bi)
+
+    #Calculo de NOR
+    #matrixes_product(x, nor_w, nor_bi)
+
+    #Calculo de NAND
+    #matrixes_product(x, nand_w, nand_bi)
+
+    #Calculo de XOR
+    xor_calculation(x)
 
